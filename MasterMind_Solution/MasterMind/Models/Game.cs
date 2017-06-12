@@ -11,94 +11,47 @@ namespace MasterMind
         public Game()
         {
             Console.Write("Wie viele Zahlen wollen Sie benutzen ( 4- 10 ) ? ");
-            GetRandomNumberCount();
-            GenerateRandomNumber(RandomNumberCount);
-            CompareWithRandom();
-            while (CompareWithRandom() == false) {
-                GetUserGuess();
+            numberCountInput = GetRandomNumberCount();
+            randomNumber =  GenerateRandomNumber(numberCountInput);            
+            bool won = false;
+            while (won == false) {
+                userGuess = GetUserGuess(numberCountInput);
             }                      
-            Console.WriteLine(RandomNumber);
+            Console.WriteLine(randomNumber);
             Console.Read();
+        }        
 
-        }
-
-        private bool CompareWithRandom()
+        private static int[] GetUserGuess(int userSize)
         {
-            if (RandomNumber == UserGuess) {
-                Console.WriteLine("Jippie! Du hast gewonnen!!");
-                return true;
+            int number = 0;
+            int[] userGuess = new int[userSize];
+            for (int i = 0; i < userSize; i++) {
+                Console.Write("Digit {0}: ", (i + 1));
+                while (!int.TryParse(Console.ReadLine(), out number) /*|| number < 1 || number > 4*/)
+                    Console.WriteLine("Invalid number!");
+                userGuess[i] = number;
             }
-            else {
-                Console.WriteLine("Leider falsch. Bitte versuche es nochmal.");
-                return false;
+            Console.WriteLine();
+            Console.Write("Your guess: ");
+            for (int i = 0; i < userSize; i++) {
+                Console.Write(userGuess[i] + " ");
             }
-        }
-
-        private int GetUserGuess()
-        {
-            Console.WriteLine("Bitte geben Sie Ihren Tip ab!");
-            stringUserGuess = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Ihr Tip ist " + StringUserGuess + ".");
-            userGuess = stringUserGuess;
+            Console.WriteLine();
             return userGuess;
         }
 
-        private string playerName;
-        public string PlayerName
-        {
-            get { return playerName; }
-            set { playerName = value; }
-        }
-
-        private int numberCountInput;
-
-        public int NumberCountInput
-        {
-            get { return numberCountInput; }
-            set { numberCountInput = value; }
-        }
-
-        private int randomNumber;
-        public int RandomNumber
-        {
-            get { return randomNumber; }
-            set { randomNumber = value; }
-        }
-
+        private static int numberCountInput;       
+        private int[] randomNumber;        
         private int randomNumberCount;
-        public int RandomNumberCount
-        {
-            get { return randomNumberCount; }
-            set { randomNumberCount = value; }
-        }
-
-        private int userGuess;
-        public int UserGuess
-        {
-            get { return userGuess; }
-            set { userGuess = value; }
-        }
-
-        private int countHits;
-        public int CountHits
-        {
-            get { return countHits; }
-            set { countHits = value; }
-        }
-
-        private int stringUserGuess;
-        public int StringUserGuess
-        {
-            get { return stringUserGuess; }
-            set { stringUserGuess = value; }
-        }
+        private int[] userGuess;
+        
 
         public int GetRandomNumberCount()
         {
-            NumberCountInput = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Sie haben " + NumberCountInput + " Zahlen ausgewählt.");
-            RandomNumberCount = NumberCountInput;
-            return RandomNumberCount;
+            numberCountInput = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Sie haben " + numberCountInput + " Zahlen ausgewählt.");
+            randomNumberCount = numberCountInput;
+            return randomNumberCount;
         }
 
         public int[] GenerateRandomNumber(int RandomNumberCount)
