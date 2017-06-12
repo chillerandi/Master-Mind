@@ -10,11 +10,14 @@ namespace MasterMind
     {
         public Game()
         {
+            Console.Write("Wie viele Zahlen wollen Sie benutzen ( 4- 10 ) ? ");
             GetRandomNumberCount();
             GenerateRandomNumber(RandomNumberCount);
-            GetUserGuess();
             CompareWithRandom();
-            //Console.WriteLine(RandomNumber);
+            while (CompareWithRandom() == false) {
+                GetUserGuess();
+            }                      
+            Console.WriteLine(RandomNumber);
             Console.Read();
 
         }
@@ -23,23 +26,21 @@ namespace MasterMind
         {
             if (RandomNumber == UserGuess) {
                 Console.WriteLine("Jippie! Du hast gewonnen!!");
-                Console.Read();
                 return true;
             }
             else {
                 Console.WriteLine("Leider falsch. Bitte versuche es nochmal.");
-
                 return false;
             }
-
         }
 
-        private void GetUserGuess()
+        private int GetUserGuess()
         {
             Console.WriteLine("Bitte geben Sie Ihren Tip ab!");
             stringUserGuess = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Ihr Tip ist " + StringUserGuess + ".");
-
+            userGuess = stringUserGuess;
+            return userGuess;
         }
 
         private string playerName;
@@ -57,7 +58,6 @@ namespace MasterMind
             set { numberCountInput = value; }
         }
 
-
         private int randomNumber;
         public int RandomNumber
         {
@@ -66,9 +66,6 @@ namespace MasterMind
         }
 
         private int randomNumberCount;
-
-
-
         public int RandomNumberCount
         {
             get { return randomNumberCount; }
@@ -98,18 +95,8 @@ namespace MasterMind
 
         public int GetRandomNumberCount()
         {
-            Console.Write("Wie viele Zahlen wollen Sie benutzen ( 4- 10 ) ? ");
             NumberCountInput = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Sie haben " + NumberCountInput + " Zahlen ausgewählt.");
-            Console.Read();
-            //if (int.TryParse(Console.ReadLine(), out NumberCountInput)) {
-            //    Console.WriteLine("Sie haben " + NumberCountInput + " Zahlen ausgewählt.");
-            //}
-
-            //if(input < 4 || input > 10) {
-            //    Console.Write(" Bitte wählen Sie eine Anzahl zwischen 4 und 10! ");
-            //}
-            //Console.Write("Die gewünschte Anzahl ist " + input);
             RandomNumberCount = NumberCountInput;
             return RandomNumberCount;
         }
@@ -117,7 +104,6 @@ namespace MasterMind
         public int[] GenerateRandomNumber(int RandomNumberCount)
         {
             int singleNumber;
-
             int[] randomNumber = new int[RandomNumberCount];
             Random rnd = new Random();
             Console.Write("PC Number : ");
@@ -127,7 +113,6 @@ namespace MasterMind
                 Console.Write(singleNumber);
             }
             Console.WriteLine();
-
             return randomNumber;
         }
     }
