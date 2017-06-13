@@ -70,6 +70,7 @@ namespace MasterMind
 
         private static int CountHits(int[] PCArray, int[] userGuess)
         {
+            // TODO: bei 2 oder mwehr gleichen Zahlen im PCArray wird ein richtiger metahit aus dem userGuess mehrfach gezählt, somit falsch angezeigt..
             int metaHits = 0;
             for (int i = 0; i < PCArray.Length; i++) {
                 if (userGuess.Any(item => item == PCArray[i]) && (PCArray[i] != userGuess[i])) {
