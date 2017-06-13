@@ -10,21 +10,26 @@ namespace MasterMind
     {
         public Game()
         {
-            
+            Play();
+           
+        }
+
+        private static void Play()
+        {
             int numberCount = GetRandomNumberCount();
-            int[] PCArray =  GenerateRandomNumber(numberCount);            
+            int[] PCArray = GenerateRandomNumber(numberCount);
             bool won = false;
             while (won == false) {
-              int[] userGuess = GetUserGuess(numberCount);
+                int[] userGuess = GetUserGuess(numberCount);
 
                 if (CountHits(PCArray, userGuess) == numberCount)
                     won = true;
-            }                      
+            }
             Console.WriteLine(PCArray);
             Console.Read();
         }
 
-        private int CountHits(int[] PCArray, int[] userGuess)
+        private static int CountHits(int[] PCArray, int[] userGuess)
         {
             int hits = 0;
             for(int i = 0; i < PCArray.Length; i++) {
@@ -54,7 +59,7 @@ namespace MasterMind
             return userGuess;
         }                   
        
-        public int GetRandomNumberCount()
+        public static int GetRandomNumberCount()
         {
             int randomNumberCount;
             Console.Write("Wie viele Zahlen wollen Sie benutzen ( 4- 10 ) ? ");
@@ -64,7 +69,7 @@ namespace MasterMind
             return randomNumberCount;
         }
 
-        public int[] GenerateRandomNumber(int RandomNumberCount)
+        public static int[] GenerateRandomNumber(int RandomNumberCount)
         {
             int singleNumber;
             int[] randomNumber = new int[RandomNumberCount];
