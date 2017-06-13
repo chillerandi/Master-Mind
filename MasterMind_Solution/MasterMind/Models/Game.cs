@@ -11,7 +11,7 @@ namespace MasterMind
         public Game()
         {
             Play();
-           
+
         }
 
         private static void Play()
@@ -25,18 +25,25 @@ namespace MasterMind
                 if (CountHits(PCArray, userGuess) == numberCount)
                     won = true;
             }
-            Console.WriteLine(PCArray);
-            Console.Read();
+            if (won)
+                Console.WriteLine("You win!");
+            else
+                Console.WriteLine("Oh no! You couldn't guess the right number.");
+            Console.Write("The correct number is: ");
+            for (int j = 0; j < numberCount; j++)
+                Console.Write(PCArray[j] + " ");
+            Console.WriteLine();
+           // Console.Read();
         }
 
         private static int CountHits(int[] PCArray, int[] userGuess)
         {
             int hits = 0;
-            for(int i = 0; i < PCArray.Length; i++) {
+            for (int i = 0; i < PCArray.Length; i++) {
                 if (PCArray[i] == userGuess[i])
                     hits++;
             }
-            Console.WriteLine("Results: {0} Hit(s), {1} Miss(es)", hits, PCArray.Length - hits);
+             Console.WriteLine("Results: {0} Hit(s), {1} Miss(es)", hits, PCArray.Length - hits);
             return hits;
         }
 
@@ -57,13 +64,13 @@ namespace MasterMind
             }
             Console.WriteLine();
             return userGuess;
-        }                   
-       
+        }
+
         public static int GetRandomNumberCount()
         {
             int randomNumberCount;
             Console.Write("Wie viele Zahlen wollen Sie benutzen ( 4- 10 ) ? ");
-            int  numberCount = Convert.ToInt32(Console.ReadLine());
+            int numberCount = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Sie haben " + numberCount + " Zahlen ausgewählt.");
             randomNumberCount = numberCount;
             return randomNumberCount;
