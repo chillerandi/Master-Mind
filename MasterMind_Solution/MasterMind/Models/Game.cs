@@ -10,16 +10,30 @@ namespace MasterMind
     {
         public Game()
         {
-            Console.Write("Wie viele Zahlen wollen Sie benutzen ( 4- 10 ) ? ");
-            numberCountInput = GetRandomNumberCount();
-            randomNumber =  GenerateRandomNumber(numberCountInput);            
+            
+            int numberCount = GetRandomNumberCount();
+            int[] PCArray =  GenerateRandomNumber(numberCount);            
             bool won = false;
             while (won == false) {
-                userGuess = GetUserGuess(numberCountInput);
+              int[] userGuess = GetUserGuess(numberCount);
+
+                if (CountHits(PCArray, userGuess) == numberCount)
+                    won = true;
             }                      
-            Console.WriteLine(randomNumber);
+            Console.WriteLine(PCArray);
             Console.Read();
-        }        
+        }
+
+        private int CountHits(int[] PCArray, int[] userGuess)
+        {
+            int hits = 0;
+            for(int i = 0; i < PCArray.Length; i++) {
+                if (PCArray[i] == userGuess[i])
+                    hits++;
+            }
+            Console.WriteLine("Results: {0} Hit(s), {1} Miss(es)", hits, PCArray.Length - hits);
+            return hits;
+        }
 
         private static int[] GetUserGuess(int userSize)
         {
@@ -38,19 +52,15 @@ namespace MasterMind
             }
             Console.WriteLine();
             return userGuess;
-        }
-
-        private static int numberCountInput;       
-        private int[] randomNumber;        
-        private int randomNumberCount;
-        private int[] userGuess;
-        
-
+        }                   
+       
         public int GetRandomNumberCount()
         {
-            numberCountInput = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Sie haben " + numberCountInput + " Zahlen ausgewählt.");
-            randomNumberCount = numberCountInput;
+            int randomNumberCount;
+            Console.Write("Wie viele Zahlen wollen Sie benutzen ( 4- 10 ) ? ");
+            int  numberCount = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Sie haben " + numberCount + " Zahlen ausgewählt.");
+            randomNumberCount = numberCount;
             return randomNumberCount;
         }
 
